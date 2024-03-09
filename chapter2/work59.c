@@ -4,10 +4,8 @@ int main()
 {
 	uint32_t a=0x89ABCDEF;
 	uint32_t b=0x76543210;
-	char *p1=(char *)&a;
-	char *p2=(char *)&b;
-    p2[0]=p1[0];
-	for(int i=0;i<sizeof(uint32_t);i++){
-		printf("%.2x ",p2[i]);
-	}
+	uint32_t mask=0xFFFFFF00;
+	uint32_t answer=((b&mask)|(a&~mask));
+	printf("%x",answer);
+	
 }
