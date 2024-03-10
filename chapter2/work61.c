@@ -1,18 +1,23 @@
 #include<stdio.h>
+#include<assert.h>
 
-int judge(int x)
-{
-	char *p=(char *)&x;
-	unsigned char low=p[0];
-	int size=sizeof(int)<<3;
-	unsigned char high=p[size-1];
-	unsigned char mask1=0xFF;
-	unsigned char mask2=0x00;
-	return (low&mask1||high&mask2)||(high&mask1||high&mask2); 
+int A(int x){
+	return !~x;
+}
+int B(int x){
+	return !x;
+}
+int C(int x){
+	return A(x|~0xff);
+}
+int D(int x){
+	return B(x>>((sizeof(int)-1)<<3)&0xff);
 }
  int main()
 {
-	int x=0;
-	scanf("%x",&x);
-	printf("%d\n",judge(x));
+	int x1=0x1234ff;
+	int x2=0x1234;
+	assert(A(x1));
+	assert(D(x1));
+
 }
